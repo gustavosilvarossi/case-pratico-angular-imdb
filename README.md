@@ -1,0 +1,1 @@
+# case-pratico-angular-imdb
