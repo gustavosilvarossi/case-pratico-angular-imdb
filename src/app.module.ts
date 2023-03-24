@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { UserModule } from './resources/user/user.module';
+import { MoviesUserLikeModule } from './resources/movies-user-like/movies-user-like.module';
 
 @Module({
-  imports: [AuthModule, UserModule],
+  imports: [AuthModule, UserModule, MoviesUserLikeModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_GUARD,

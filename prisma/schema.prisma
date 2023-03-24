@@ -11,10 +11,18 @@ datasource db {
 }
 
 model users {
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  email         String  @unique
-  name_user     String
-  password      String
-  salt          String?
-  errorPassword Int     @default(0)
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  email          String           @unique
+  name_user      String
+  password       String
+  salt           String?
+  errorPassword  Int              @default(0)
+  userMoviesLike userMoviesLike[]
+}
+
+model userMoviesLike {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user    users  @relation(fields: [usersId], references: [id])
+  usersId String @db.ObjectId
+  movieID String
 }
