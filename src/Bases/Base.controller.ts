@@ -1,6 +1,7 @@
-import { Body, ForbiddenException, Logger, Param, Post, Req, UseFilters, } from '@nestjs/common';
+import { Body, ForbiddenException, Logger, Param, Post, Req, UseFilters, UseGuards, } from '@nestjs/common';
 import { HttpExceptionFilter } from './BaseException';
 import { Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 export class BaseController<T> {
   name_controller: string;
@@ -16,6 +17,7 @@ export class BaseController<T> {
   }
 
   @Post('/create')
+  @UseGuards(AuthGuard('jwt'))
   @UseFilters(new HttpExceptionFilter())
   async create(@Body() data: T) {
     try {
@@ -27,6 +29,7 @@ export class BaseController<T> {
   }
 
   @Post('/find/all')
+  @UseGuards(AuthGuard('jwt'))
   async find(@Req() request: Request) {
     try {
       const filterData = request.body;
@@ -51,6 +54,7 @@ export class BaseController<T> {
   }
 
   @Post('/update/:id')
+  @UseGuards(AuthGuard('jwt'))
   @UseFilters(new HttpExceptionFilter())
   async update(@Param('id') id: number, @Body() data: T) {
     try {
@@ -62,6 +66,7 @@ export class BaseController<T> {
   }
 
   @Post('/delete/:id')
+  @UseGuards(AuthGuard('jwt'))
   @UseFilters(new HttpExceptionFilter())
   async delete(@Param('id') id: number) {
     try {
